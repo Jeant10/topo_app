@@ -1,19 +1,3 @@
-/*
- * Copyright 2014 Thomas Hoffmann
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package de.j4velin.mapsmeasure;
 
 import android.Manifest;
@@ -276,6 +260,8 @@ public class Map extends FragmentActivity implements OnMapReadyCallback {
                     new LatLng(savedInstanceState.getDouble("position-lat"),
                             savedInstanceState.getDouble("position-lon")),
                     savedInstanceState.getFloat("position-zoom")));
+
+                    //aqui tal vez
         } catch (Exception e) {
             if (BuildConfig.DEBUG) Logger.log(e);
         }
@@ -622,6 +608,11 @@ public class Map extends FragmentActivity implements OnMapReadyCallback {
         });
     }
 
+
+
+
+    //Aqui estas el mapa y mas cosas abajo
+
     @SuppressLint("MissingPermission")
     @Override
     public void onMapReady(@NonNull final GoogleMap googleMap) {
@@ -644,6 +635,8 @@ public class Map extends FragmentActivity implements OnMapReadyCallback {
                             new LatLng(location.getLatitude(), location.getLongitude());
                     double distance = SphericalUtil.computeDistanceBetween(myLocation,
                             mMap.getCameraPosition().target);
+
+                            //aqui
 
                     // Only if the distance is less than 50cm we are on our location, add the marker
                     if (distance < 0.5) {
@@ -691,8 +684,11 @@ public class Map extends FragmentActivity implements OnMapReadyCallback {
             getCurrentLocation(location -> {
                 if (location != null && mMap.getCameraPosition().zoom <= 5) {
                     moveCamera(new LatLng(location.getLatitude(), location.getLongitude()));
+                    //AQUI
                 }
             });
+
+            //aqui
         }
     }
 
@@ -819,6 +815,8 @@ public class Map extends FragmentActivity implements OnMapReadyCallback {
         else mDrawerLayout.openDrawer(GravityCompat.START);
         return false;
     }
+
+    //aqui cerrar la localizacion
 
     @Override
     public void onDestroy() {

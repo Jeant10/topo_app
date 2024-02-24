@@ -4,6 +4,9 @@ buildscript {
         google()
     }
     dependencies {
+        classpath 'com.google.gms:google-services:4.4.1'
+        classpath 'com.android.tools.build:gradle:8.1.0'
+        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.9.9'
         if (rootProject.ext.has("gradle_classpath")) {
             classpath rootProject.ext.gradle_classpath
         } else {
@@ -14,6 +17,8 @@ buildscript {
 }
 
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.firebase.crashlytics'
 
 android {
 
@@ -22,14 +27,14 @@ android {
         buildToolsVersion rootProject.ext.buildToolsVersion
     } else {
         logger.warn('compileSdkVersion not found in rootProject')
-        compileSdkVersion 33
-        buildToolsVersion "33.0.0"
+        compileSdkVersion 34
+        buildToolsVersion "33.0.1"
     }
 
     defaultConfig {
         applicationId "de.j4velin.mapsmeasure"
         minSdkVersion 19
-        targetSdkVersion 33
+        targetSdkVersion 34
         if (!project.file("key.properties").exists()) {
             resValue "string", "maps_api_key", "0000"
             resValue "string", "elevation_api_key", "0000"
@@ -56,6 +61,12 @@ android {
             debuggable true
         }
     }
+
+    buildFeatures{
+        viewBinding true
+        buildConfig = true
+    }
+
     namespace 'de.j4velin.mapsmeasure'
 }
 
@@ -69,6 +80,16 @@ dependencies {
     implementation 'com.google.android.gms:play-services-location:21.0.1'
     implementation 'com.google.android.gms:play-services-maps:18.1.0'
     implementation "com.android.billingclient:billing:5.1.0"
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.11.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+
+    //firebase
+    implementation 'com.google.firebase:firebase-analytics:21.5.1'
+    implementation 'com.google.firebase:firebase-auth:22.3.1'
+    implementation 'com.google.firebase:firebase-crashlytics:18.6.2'
+    implementation 'com.google.firebase:firebase-database:20.3.0'
+    implementation 'com.google.firebase:firebase-storage:20.3.0'
 }
 
 def props = new Properties()
