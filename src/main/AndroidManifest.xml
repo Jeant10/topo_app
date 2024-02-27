@@ -31,6 +31,12 @@
         android:largeHeap="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity
+            android:name="com.proyecto.appmaster.ProfileEditActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.proyecto.appmaster.ProfileActivity"
+            android:exported="false" />
+        <activity
             android:name="com.proyecto.appmaster.ForgotPasswordActivity"
             android:exported="false" />
         <activity
