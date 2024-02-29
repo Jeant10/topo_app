@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="148dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginBottom="5dp"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="5dp"
+    app:cardElevation="0dp"
+    app:contentPadding="5dp"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:id="@+id/userRl"
+            android:layout_width="100dp"
+            android:layout_height="148dp"
+            android:layout_marginEnd="5dp">
+
+            <ImageView
+                android:id="@+id/imageTv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_person_gray">
+
+            </ImageView>
+
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/nameTv"
+            style="@style/TextAppearance.MaterialComponents.Headline6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toStartOf="@id/switchStd"
+            android:text="Name"
+            android:layout_toEndOf="@id/userRl"
+            android:maxLines="1">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/emailTv"
+            style="@style/TextAppearance.MaterialComponents.Body2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Email"
+            android:layout_toEndOf="@id/userRl"
+            android:layout_marginTop="8dp"
+            android:layout_below="@id/nameTv"
+            android:maxLines="3"
+            android:ellipsize="end">
+        </TextView>
+
+        <TextView
+            android:id="@+id/typeuserTv"
+            style="@style/TextAppearance.MaterialComponents.Caption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="User"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:maxLines="1">
+        </TextView>
+
+
+
+        <TextView
+            android:id="@+id/dateTv"
+            style="@style/TextAppearance.MaterialComponents.Caption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="dd/mm/yy"
+            android:layout_toEndOf="@id/userRl"
+            android:layout_alignParentBottom="true"
+            android:maxLines="1">
+        </TextView>
+
+
+        <Switch
+            android:id="@+id/switchStd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_more_black"
+            android:layout_alignParentEnd="true">
+
+        </Switch>
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

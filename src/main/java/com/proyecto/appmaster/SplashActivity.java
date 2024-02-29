@@ -3,6 +3,7 @@ package com.proyecto.appmaster;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -56,15 +57,22 @@ public class SplashActivity extends AppCompatActivity {
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     //get user type
                     String userType = ""+snapshot.child("userType").getValue();
+                    String userState = ""+snapshot.child("state").getValue();
 
-                    if(userType.equals("user")){
+                    if(userType.equals("user") && userState.equals("true") ){
                         //this is simple user, open user dashboard
                         startActivity(new Intent(SplashActivity.this, DashboardUserActivity.class));
                         finish();
-                    }else if (userType.equals("admin")){
+                    }else if (userType.equals("admin") && userState.equals("true")){
                         //this is simple user, open admin dashboard
                         startActivity(new Intent(SplashActivity.this, DashboardAdminActivity.class));
                         finish();
+                    }
+                    else if(userState.equals("false")){
+                        firebaseAuth.signOut();
+                        Toast.makeText(SplashActivity.this,"onFailure: El usuario esta desactivado", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(SplashActivity.this, LoginActivity.class));
+
                     }
                 }
 

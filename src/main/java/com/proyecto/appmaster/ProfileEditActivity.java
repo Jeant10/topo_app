@@ -192,7 +192,7 @@ public class ProfileEditActivity extends AppCompatActivity {
         PopupMenu popupMenu = new PopupMenu(this, binding.profileTv);
 
         popupMenu.getMenu().add(Menu.NONE,0,0,"Camera");
-        popupMenu.getMenu().add(Menu.NONE,0,0,"Gallery");
+        popupMenu.getMenu().add(Menu.NONE,1,1,"Gallery");
 
         popupMenu.show();
 
@@ -242,8 +242,6 @@ public class ProfileEditActivity extends AppCompatActivity {
 
                     if(o.getResultCode() == Activity.RESULT_OK){
                         Log.d(TAG,"onActivityResult: Picked from Camera "+imageUri);
-                        Intent data = o.getData(); //no need here as in camera case we already have image
-
                         binding.profileTv.setImageURI(imageUri);
 
                     }
@@ -262,7 +260,7 @@ public class ProfileEditActivity extends AppCompatActivity {
 
                     if(o.getResultCode() == Activity.RESULT_OK){
                         Log.d(TAG,"onActivityResult: "+imageUri);
-                        Intent data = o.getData(); //no need here as in camera case we already have image
+                        Intent data = o.getData();
                         imageUri = data.getData();
                         Log.d(TAG,"onActivityResult: Picked from Gallery "+imageUri);
                         binding.profileTv.setImageURI(imageUri);
@@ -276,7 +274,7 @@ public class ProfileEditActivity extends AppCompatActivity {
     );
 
     private void loadUserInfo() {
-        Log.d("TAG","loadUserInfo: Loadin User infor of user "+firebaseAuth.getUid());
+        Log.d(TAG,"loadUserInfo: Loadin User infor of user "+firebaseAuth.getUid());
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
 
@@ -297,7 +295,7 @@ public class ProfileEditActivity extends AppCompatActivity {
 
                         //set image, usinde glide
 
-                        Glide.with(ProfileEditActivity.this)
+                        Glide.with(getApplicationContext())
                                 .load(profileImage)
                                 .placeholder(R.drawable.ic_person_gray)
                                 .into(binding.profileTv);

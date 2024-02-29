@@ -22,13 +22,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import de.j4velin.mapsmeasure.R;
 import de.j4velin.mapsmeasure.databinding.ActivityLoginBinding;
-import de.j4velin.mapsmeasure.databinding.ActivityRegisterBinding;
 
 public class LoginActivity extends AppCompatActivity {
-
-
     //view
     private ActivityLoginBinding binding;
     //firebase auth
@@ -93,7 +89,7 @@ public class LoginActivity extends AppCompatActivity {
 
         //show progress
 
-        progressDialog.setMessage("Loggin In...");
+        progressDialog.setMessage("Logging In...");
         progressDialog.show();
 
         //login user
@@ -128,21 +124,28 @@ public class LoginActivity extends AppCompatActivity {
                 progressDialog.dismiss();
                 //get user type
                 String userType = ""+snapshot.child("userType").getValue();
+                String userState = ""+snapshot.child("state").getValue();
 
-                if(userType.equals("user")){
+                if(userType.equals("user") && userState.equals("true")){
                     //this is simple user, open user dashboard
                     startActivity(new Intent(LoginActivity.this, DashboardUserActivity.class));
                     finish();
-                }else if (userType.equals("admin")){
+                }else if (userType.equals("admin") && userState.equals("true")){
                     //this is simple user, open admin dashboard
                     startActivity(new Intent(LoginActivity.this, DashboardAdminActivity.class));
                     finish();
+                }
+                else if(userState.equals("false")){
+                    progressDialog.dismiss();
+                    firebaseAuth.signOut();
+                    //startActivity(new Intent(LoginActivity.this, LoginActivity.class));
+                    Toast.makeText(LoginActivity.this,"onFailure: El usuario esta desactivado", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                progressDialog.dismiss();
             }
         });
     }

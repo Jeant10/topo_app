@@ -59,7 +59,7 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void loadUserInfo() {
-        Log.d("TAG","loadUserInfo: Loadin User infor of user "+firebaseAuth.getUid());
+        Log.d(TAG,"loadUserInfo: Loading User information of user "+firebaseAuth.getUid());
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
 
@@ -74,6 +74,12 @@ public class ProfileActivity extends AppCompatActivity {
                         String timestamp = ""+snapshot.child("timestamp").getValue();
                         String uid = ""+snapshot.child("uid").getValue();
                         String userType = ""+snapshot.child("userType").getValue();
+                        String state = ""+snapshot.child("state").getValue();
+
+                        String stateInit="";
+                        if (state.equals("true")){
+                          stateInit="activo";
+                        }
 
                         long ts = Long.parseLong(timestamp);
 
@@ -85,6 +91,7 @@ public class ProfileActivity extends AppCompatActivity {
                         binding.nameTv.setText(name);
                         binding.memberDateTv.setText(formattedDate);
                         binding.accountTypeTv.setText(userType);
+                        binding.stateTv.setText(stateInit);
 
                         //set image, usinde glide
 

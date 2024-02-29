@@ -4,35 +4,29 @@ import android.widget.Filter;
 
 import java.util.ArrayList;
 
-public class FilterCategory extends Filter {
-    //arraylist
+public class FilterUser extends Filter {
 
-    ArrayList<ModelCategory> filterList;
+    ArrayList<UserModel> filterList;
 
-    //Adapter ub which filter need top be
-    AdapterCategory adapterCategory;
+    AdapterUser adapterUser;
 
-    //contructor
-
-    public FilterCategory(ArrayList<ModelCategory> filterList, AdapterCategory adapterCategory) {
+    public FilterUser(ArrayList<UserModel> filterList, AdapterUser adapterUser) {
         this.filterList = filterList;
-        this.adapterCategory = adapterCategory;
+        this.adapterUser = adapterUser;
     }
 
-
-    @Override
-    protected FilterResults performFiltering(CharSequence charSequence) {
+    protected FilterResults performFiltering(CharSequence charSequence){
         FilterResults results = new FilterResults();
         //value should not be null
         if(charSequence != null && charSequence.length() > 0){
             // change to upper case, or lower case to avoid case sensitivity
             charSequence = charSequence.toString().toUpperCase();
-            ArrayList<ModelCategory> filteredModels = new ArrayList<>();
+            ArrayList<UserModel> filteredModels = new ArrayList<>();
 
             for(int i=0;i<filterList.size();i++){
 
                 //validate data
-                if (filterList.get(i).getCategory().toUpperCase().contains(charSequence)){
+                if (filterList.get(i).getName().toUpperCase().contains(charSequence)){
                     //add to filteredMOdels
                     filteredModels.add(filterList.get(i));
                 }
@@ -52,9 +46,9 @@ public class FilterCategory extends Filter {
     protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
         //apply filter changes
 
-        adapterCategory.categoryArrayList = (ArrayList<ModelCategory>) filterResults.values;
+        adapterUser.userArrayList = (ArrayList<UserModel>) filterResults.values;
 
         //notify changes
-        adapterCategory.notifyDataSetChanged();
+        adapterUser.notifyDataSetChanged();
     }
 }

@@ -13,15 +13,11 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 
-import de.j4velin.mapsmeasure.R;
 import de.j4velin.mapsmeasure.databinding.ActivityForgotPasswordBinding;
 
 public class ForgotPasswordActivity extends AppCompatActivity {
-
     private ActivityForgotPasswordBinding binding;
-
     private FirebaseAuth firebaseAuth;
-
     private ProgressDialog progressDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +44,6 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                 validateData();
             }
         });
-
 
     }
 

@@ -88,11 +88,11 @@
     <!--Body-->
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/categoriesRv"
+        android:id="@+id/usersRv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="5dp"
-        tools:listitem="@layout/row_category"
+        tools:listitem="@layout/row_user"
         android:layout_below="@id/searchEt"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:layout_above="@id/bottonLl">
@@ -112,10 +112,10 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/addCategoryBtn"
+            android:id="@+id/addUserBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="+ Add Category"
+            android:text="+ Add User"
             android:layout_weight="1"
             android:layout_marginEnd="10dp"
             android:background="@drawable/shape_button01"

@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -17,20 +18,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import org.checkerframework.checker.units.qual.A;
-
 import java.util.ArrayList;
 
-import de.j4velin.mapsmeasure.R;
 import de.j4velin.mapsmeasure.databinding.ActivityDashboardAdminBinding;
 
 public class DashboardAdminActivity extends AppCompatActivity {
-
     private ActivityDashboardAdminBinding binding;
     private FirebaseAuth firebaseAuth;
-    private ArrayList<ModelCategory> categoryArrayList;
-
-    private AdapterCategory adapterCategory;
+    private ArrayList<UserModel> userArrayList;
+    public AdapterUser adapterUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,9 +37,9 @@ public class DashboardAdminActivity extends AppCompatActivity {
 
         checkUser();
 
-        loadCategories();
+        loadUsers();
 
-        //edit text change listern, search
+        //edit text change listen, search
         binding.searchEt.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -55,7 +51,7 @@ public class DashboardAdminActivity extends AppCompatActivity {
                 //called as and when user type letter
 
                 try {
-                    adapterCategory.getFilter().filter(charSequence);
+                    adapterUser.getFilter().filter(charSequence);
                 }
                 catch (Exception e){
 
@@ -78,10 +74,10 @@ public class DashboardAdminActivity extends AppCompatActivity {
         });
 
         //start category screen
-        binding.addCategoryBtn.setOnClickListener(new View.OnClickListener() {
+        binding.addUserBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(DashboardAdminActivity.this, CategoryAddActivity.class));
+                startActivity(new Intent(DashboardAdminActivity.this, AddUserActivity.class));
             }
         });
 
@@ -92,34 +88,44 @@ public class DashboardAdminActivity extends AppCompatActivity {
             }
         });
 
+
+
     }
 
-    private void loadCategories() {
+    public void loadUsers(){
+
+        //obtener id
+        String uidUser = firebaseAuth.getUid();
+
         //init array
-        categoryArrayList = new ArrayList<>();
+        userArrayList = new ArrayList<>();
         //get all categories from firebase
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Categories");
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 //clear arraylist before adding data
 
-                categoryArrayList.clear();
+                userArrayList.clear();
 
                 for (DataSnapshot ds: snapshot.getChildren()){
                     //get data
-                    ModelCategory model = ds.getValue(ModelCategory.class);
+                    UserModel model = ds.getValue(UserModel.class);
 
-                    //add to arraaylist
-                    categoryArrayList.add(model);
+                    if (!model.getUid().equals(uidUser)){
+
+                        Log.d("TAG", "user"+model);
+                        //add to arraaylist
+                        userArrayList.add(model);
+                    }
                 }
 
                 //Setup adapter
-                adapterCategory = new AdapterCategory(DashboardAdminActivity.this,categoryArrayList);
+                adapterUser = new AdapterUser(DashboardAdminActivity.this,userArrayList);
 
                 //Set adapte to recyclerView
 
-                binding.categoriesRv.setAdapter(adapterCategory);
+                binding.usersRv.setAdapter(adapterUser);
 
             }
 
