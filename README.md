@@ -1,6 +1,8 @@
-# Juego sencillo Android Nativo
+# Topo App - Proyecto Moviles
 
-Implementar una aplicación Android nativa que me permita interactuar mediante los sensores del dispositivo celular. Dichas interacciones deben guardarse en firebase.<br>
+Implementar una aplicación para topografos que permite trackear en tiempo real la ubicación de los dispositivos
+para mapear terrenos y calcular el área de
+dichos terrenos. Ademas, Cada usuario de la aplicación podrá ver donde se encuentran sus demás compañeros topógrafos<br>
 
 ## Integrantes :
 
@@ -13,19 +15,25 @@ Implementar una aplicación Android nativa que me permita interactuar mediante l
 ## Caracteristicas:
 
 <ul>
-<li>Creacion del pájaro, las tuberías y el contador</li>
-<li>Crear el techo, piso, y agregar el pajaro con Box2d</li>
-<li>Con un contador de los saltos</li>
-<li>Pagina de LogIn y SignUp</li>
-<li>Sprites (imágenes) y texture packer</li>
-
+<li>Login para validación de usuarios</li>
+<li>Sistema de administración web para agregar, eliminar o desactivar usuarios y
+administradores. Además esta aplicación web debe permitir ver en tiempo real donde se
+encuentran los topógrafos, esto en el caso de que puedan perderse</li>
+<li>Sistema que permita ver los terrenos y sus características, ubicación, polígono definido,
+área, etc.</li>
+<li>Geolocalización en tiempo real, utilizando Google Maps, para determinar la
+geolocalización a medida que cambie la posición del topógrafo.p</li>
+<li>Calcular del área del polígono</li>
 </ul>
 
 ## Links :
 
 El Link de la APK se encuentra 👉 <a href="https://drive.google.com/drive/folders/1u_0B54SLXK9WRDb44eb9F45eKggQCrCO?usp=drive_link">aqui</a>
 
+El Link de la APK en la tienda encuentra 👉 <a href="">aqui</a>
+
 ### Creditos
+
 El repositorio de referencia se encuentra 👉 <a href="https://github.com/j4velin/MapsMeasure">aqui</a>
 
 ## Screenshots :
