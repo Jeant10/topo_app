@@ -42,7 +42,7 @@ El repositorio de referencia se encuentra 👉 <a href="https://github.com/j4vel
 
 <table sytle="border: 0px;">
 <tr>
-<td><img width="200px" src="[screenshot1.png](https://github.com/Jeant10/topo_app/assets/74752987/8b37d68a-bed4-4c1f-a5fd-38f8e3cdafd0)" /></td>
+<td><img width="200px" src="https://github.com/Jeant10/topo_app/assets/74752987/8b37d68a-bed4-4c1f-a5fd-38f8e3cdafd0" /></td>
 <td><img width="200px" src="screenshot2.png" /></td>
 <td><img width="200px" src="screenshot3.png" /></td>
 </tr>
