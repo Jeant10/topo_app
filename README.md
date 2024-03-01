@@ -32,7 +32,7 @@ El Link de la APK se encuentra 👉 <a href="https://drive.google.com/drive/fold
 
 El Link del video encuentra 👉 <a href="">aqui</a>
 
-El Link del store encuentra 👉 <a href="">aqui</a>
+El Link del store encuentra 👉 <a href="https://drive.google.com/drive/folders/1gKFEISCkPzpRmPfXcPmBHERrHHzdRPMK">aqui</a>
 
 ### Creditos
 
