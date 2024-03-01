@@ -17,11 +17,11 @@ dichos terrenos. Ademas, Cada usuario de la aplicación podrá ver donde se encu
 <ul>
 <li>Login para validación de usuarios</li>
 <li>Sistema de administración web para agregar, eliminar o desactivar usuarios y
-administradores. Además esta aplicación web debe permitir ver en tiempo real donde se
+administradores. Además esta aplicación web permite ver en tiempo real donde se
 encuentran los topógrafos, esto en el caso de que puedan perderse</li>
 <li>Sistema que permita ver los terrenos y sus características, ubicación, polígono definido,
 área, etc.</li>
-<li>Calcular del área del polígono</li>
+<li>Calcula del área del polígono</li>
 <li>Geolocalización en tiempo real, utilizando Google Maps, para determinar la
 geolocalización a medida que cambie la posición del topógrafo</li>
 </ul>
