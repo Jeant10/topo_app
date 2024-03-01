@@ -2,7 +2,7 @@
 
 Implementar una aplicación para topografos que permite trackear en tiempo real la ubicación de los dispositivos
 para mapear terrenos y calcular el área de
-dichos terrenos. Ademas, Cada usuario de la aplicación podrá ver donde se encuentran sus demás compañeros topógrafos<br>
+dichos terrenos. Ademas, Cada usuario de la aplicación puede ver donde se encuentran sus demás compañeros topógrafos<br>
 
 ## Integrantes :
 
@@ -21,7 +21,7 @@ administradores. Además esta aplicación web permite ver en tiempo real donde s
 encuentran los topógrafos, esto en el caso de que puedan perderse</li>
 <li>Sistema que permita ver los terrenos y sus características, ubicación, polígono definido,
 área, etc.</li>
-<li>Calcula del área del polígono</li>
+<li>Calcula del área del polígono y servicio de geolocalización corra en background</li>
 <li>Geolocalización en tiempo real, utilizando Google Maps, para determinar la
 geolocalización a medida que cambie la posición del topógrafo</li>
 </ul>
