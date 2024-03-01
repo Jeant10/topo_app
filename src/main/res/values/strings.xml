@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
 
-    <string name="app_name">Proyecto</string>
+    <string name="app_name">Topo App</string>
     <string name="new_user_signup">New User? <b>SignUp</b></string>
     <string name="section_measure">Measure</string>
     <string name="section_mapview">Map view</string>
@@ -13,9 +13,7 @@
     <string name="mapview_terrain">Terrain</string>
     <string name="metric">Metric units</string>
     <string name="about">About</string>
-    <string name="about_text">This app was created by Thomas Hoffmann (<a href="http://www.j4velin.de">www.j4velin.de</a>) and uses the \'Google Maps API v2\'.\n\nMaps Measure is open source! Get the code from <a href="https://github.com/j4velin/MapsMeasure">GitHub</a>.\n\n</string>
     <string name="app_version">App version: %s</string>
-    <string name="moreapps">More apps</string>
     <string name="delete">delete</string>
     <string name="delete_all">Delete all %d points?</string>
     <string name="no_location_found">No location found</string>
@@ -30,7 +28,7 @@
     <string name="no_files_found">No files found in %s</string>
     <string name="elevation_error">There was an error connecting to the Google Evelation API: Server currently not available or daily request limit reached</string>
     <string name="elevation_error_no_connection">No internet connection: The app needs to query the Google Evelation API to get altitude data and therefore requires an active internet connection to calculate evelation data</string>
-    <string name="buy_pro">This feature is currently not available in the free version of the app. Do you want to upgrade to the pro version now?</string>
+    <string name="buy_pro">This option is under developement</string>
     <string name="file_name">File name (optional)</string>
     <string name="file_path">File will be saved here: %s</string>
     <string name="dir_read_error">Error reading directory %s</string>
@@ -38,4 +36,7 @@
     <string name="no_google_connection">Can not reach Google server to query for elevation information - please check your internet connection</string>
     <string name="purchase_error">Purchase not successful, please try again\nErrorcode: %d</string>
     <string name="purchase_start_error">Can not launch purchase flow, please try again later</string>
+    <string name="profile">Profile</string>
+    <string name="logout">Logout</string>
+    <string name="user_tv">User</string>
 </resources>

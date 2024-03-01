@@ -88,7 +88,6 @@
             android:layout_height="wrap_content"
             android:padding="5dp"
             android:background="@android:color/transparent"
-            android:src="@drawable/ic_more_black"
             android:layout_alignParentEnd="true">
 
         </Switch>

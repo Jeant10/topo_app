@@ -10,9 +10,7 @@
     <string name="mapview_satellite">Satellite</string>
     <string name="metric">Sistema metrico decimale</string>
     <string name="about">About</string>
-    <string name="about_text">Questa app è stata creata da Thomas Hoffmann (<a href="http://www.j4velin-development.de">www.j4velin-development.de</a>) e usa le \'Google Maps API v2\'.\n\nMaps Measure è open source! Prendi il codice da <a href="https://github.com/j4velin/MapsMeasure">GitHub</a>.\n\n</string>
     <string name="app_version">Versione app: %s</string>
-    <string name="moreapps">Altre app</string>
     <string name="delete_all">Cancella tutti e %d i punti?</string>
     <string name="no_location_found">Luogo non trovato</string>
     <string name="units">Unità di misura</string>
@@ -29,5 +27,8 @@
     <string name="buy_pro">Questa opzione non è attualmente disponibile nella versione gratuita dell\'app. Vuoi aggiornare l\'app alla versione pro adesso?</string>
     <string name="file_name">Nome del file (facoltativo)</string>
     <string name="file_path">Il file verrà salvato qui: %s</string>
+    <string name="profile">Profile</string>
+    <string name="logout">Logout</string>
+    <string name="user_tv">User</string>
 
 </resources>

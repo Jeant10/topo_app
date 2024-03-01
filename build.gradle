@@ -32,13 +32,14 @@ android {
     }
 
     defaultConfig {
-        applicationId "de.j4velin.mapsmeasure"
+        applicationId "com.proyecto.appmaster"
         minSdkVersion 19
         targetSdkVersion 34
         if (!project.file("key.properties").exists()) {
             resValue "string", "maps_api_key", "0000"
             resValue "string", "elevation_api_key", "0000"
         }
+        multiDexEnabled true
     }
 
     signingConfigs {
@@ -91,8 +92,17 @@ dependencies {
     implementation 'com.google.firebase:firebase-database:20.3.0'
     implementation 'com.google.firebase:firebase-storage:20.3.0'
 
+    // Geofire
+    implementation 'com.firebase:geofire-android:3.2.0'
+
+    // GeoFire utililty functions for Cloud Firestore users who
+    // want to implement their own geo solution, see:
+    // https://firebase.google.com/docs/firestore/solutions/geoqueries
+    implementation 'com.firebase:geofire-android-common:3.2.0'
+
     //glide
     implementation 'com.github.bumptech.glide:glide:4.16.0'
+    implementation 'com.android.support:multidex:1.0.3'
 }
 
 def props = new Properties()

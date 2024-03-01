@@ -11,10 +11,9 @@
     <string name="mapview_terrain">Terrain</string>
     <string name="metric">Unités métriques</string>
     <string name="about">À propos</string>
-    <string name="about_text">Cette appli a été créée par Thomas Hoffmann (<a href="http://www.j4velin.de">www.j4velin.de</a>) et elle utilise la \'Google Maps API v2\'.\n\nMaps Measure est open source ! Obtenez le code source sur <a href="https://github.com/j4velin/MapsMeasure">GitHub</a>.\n\n</string>
     <string name="app_version">Version de l\'appli : %s</string>
-    <string name="moreapps">Plus d\'Applis</string>
     <string name="delete">effacer</string>
+
     <string name="delete_all">Effacer les %d points?</string>
     <string name="no_location_found">Aucun emplacement trouvé</string>
     <string name="units">Unités</string>
@@ -34,4 +33,7 @@
     <string name="dir_read_error">Erreur de lecture du répertoire %s</string>
     <string name="marker_on_current_location">Un marqueur a été ajouté sur votre position actuelle</string>
     <string name="no_google_connection">Impossible de contacter le serveur Google pour obtenir des informations sur l\'altitude. Veuillez vérifier votre connexion Internet</string>
+    <string name="profile">Profile</string>
+    <string name="logout">Logout</string>
+    <string name="user_tv">User</string>
 </resources>

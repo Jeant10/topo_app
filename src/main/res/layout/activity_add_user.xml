@@ -29,7 +29,7 @@
             android:layout_height="110dp"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="40dp"
-            android:src="@drawable/logoapp">
+            android:src="@drawable/topoapp">
 
         </ImageView>
 

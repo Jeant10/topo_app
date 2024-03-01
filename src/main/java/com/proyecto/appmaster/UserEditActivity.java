@@ -113,12 +113,15 @@ public class UserEditActivity extends AppCompatActivity {
 
     private void validateData() {
 
-        rol = binding.typeEt.getText().toString().trim();
+        rol = binding.typeEt.getText().toString().trim().toLowerCase();
 
         if (TextUtils.isEmpty(rol)){
-            Toast.makeText(this,"Enter name...",Toast.LENGTH_SHORT).show();
-        }else {
+            Toast.makeText(this,"Enter your rol...",Toast.LENGTH_SHORT).show();
+        } else if (rol.equals("admin") || rol.equals("user")){
             updateProfile();
+        }
+        else {
+            Toast.makeText(this,"Roles must be admin or user...",Toast.LENGTH_SHORT).show();
         }
     }
 

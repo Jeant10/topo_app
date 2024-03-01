@@ -16,6 +16,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import de.j4velin.mapsmeasure.Map;
 import de.j4velin.mapsmeasure.R;
 
 public class SplashActivity extends AppCompatActivity {
@@ -61,7 +62,7 @@ public class SplashActivity extends AppCompatActivity {
 
                     if(userType.equals("user") && userState.equals("true") ){
                         //this is simple user, open user dashboard
-                        startActivity(new Intent(SplashActivity.this, DashboardUserActivity.class));
+                        startActivity(new Intent(SplashActivity.this, Map.class));
                         finish();
                     }else if (userType.equals("admin") && userState.equals("true")){
                         //this is simple user, open admin dashboard

@@ -13,10 +13,9 @@
     <string name="mapview_terrain">Έδαφος</string>
     <string name="metric">Μονάδες μέτρησης</string>
     <string name="about">Περί</string>
-    <string name="about_text">Αυτή η εφαρμογή δημιουργήθηκε από τον Thomas Hoffmann (<a href="http://www.j4velin.de">www.j4velin.de</a>) και χρησιμοποιεί το \'Google Maps API v2\'.\n\nΤο Maps Measure είναι ανοικτού κώδικα! Πρόσβαση στον κώδικα στον <a href="https://github.com/j4velin/MapsMeasure">GitHub</a>.\n\n</string>
     <string name="app_version">Έκδοση: %s</string>
-    <string name="moreapps">Άλλες εφαρμογές</string>
     <string name="delete">Διαγραφή</string>
+
     <string name="delete_all">Διαγραφή και των %d σημείων;</string>
     <string name="no_location_found">Δε βρέθηκε τοποθεσία</string>
     <string name="units">Μονάδες</string>
@@ -36,4 +35,7 @@
     <string name="dir_read_error">Σφάλμα ανάγνωσης φακέλου %s</string>
     <string name="marker_on_current_location">Ένας δείκτης προστέθηκε στην τρέχουσα τοποθεσία σας</string>
     <string name="no_google_connection">Αδυναμία πρόσβασης στο διακομιστή της Google για ανάκτηση υψομετρικών δεδομένων - παρακαλώ ελέγξτε τη σύνδεση σας</string>
+    <string name="profile">Profile</string>
+    <string name="logout">Logout</string>
+    <string name="user_tv">User</string>
 </resources>

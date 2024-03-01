@@ -3,17 +3,17 @@ package de.j4velin.mapsmeasure;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.net.Uri;
+import android.location.Location;
 import android.os.BadParcelableException;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.util.Pair;
 import android.view.Menu;
 import android.view.View;
@@ -38,6 +38,11 @@ import com.android.billingclient.api.Purchase;
 import com.android.billingclient.api.PurchasesUpdatedListener;
 import com.android.billingclient.api.QueryProductDetailsParams;
 import com.android.billingclient.api.QueryPurchasesParams;
+import com.firebase.geofire.GeoFire;
+import com.firebase.geofire.GeoLocation;
+import com.firebase.geofire.GeoQuery;
+import com.firebase.geofire.GeoQueryDataEventListener;
+import com.firebase.geofire.GeoQueryEventListener;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -53,10 +58,20 @@ import com.google.android.gms.maps.model.Polygon;
 import com.google.android.gms.maps.model.PolygonOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.maps.android.SphericalUtil;
+import com.proyecto.appmaster.GeofireProvider;
+import com.proyecto.appmaster.MainActivity;
+import com.proyecto.appmaster.ProfileActivity;
 
 import java.io.IOException;
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
@@ -70,6 +85,7 @@ public class Map extends FragmentActivity implements OnMapReadyCallback {
             Color.argb(128, 255, 0, 0);
     private final static float LINE_WIDTH = 5f;
     private final static int REQUEST_LOCATION_PERMISSION = 0;
+    private FirebaseAuth firebaseAuth;
     private final static String SKU = "de.j4velin.mapsmeasure.billing.pro";
 
     enum MeasureType {
@@ -79,6 +95,8 @@ public class Map extends FragmentActivity implements OnMapReadyCallback {
     // the map to draw to
     private GoogleMap mMap;
     private DrawerLayout mDrawerLayout;
+
+    private String userId;
 
     // the stacks - everytime the user touches the map, an entry is pushed
     private final Stack<LatLng> trace = new Stack<>();
@@ -110,6 +128,14 @@ public class Map extends FragmentActivity implements OnMapReadyCallback {
     private LocationCallback lastLocationCallback;
 
     private BillingClient billingClient;
+
+    private List<Marker> mUsersMarkers = new ArrayList<>();
+
+    private boolean isFirstTime = true;
+
+    private LatLng mCurrentLatIng;
+
+    private GeofireProvider mgeoFireProv;
 
     @SuppressLint("ConstantLocale")
     final static NumberFormat formatter_two_dec = NumberFormat.getInstance(Locale.getDefault());
@@ -326,11 +352,24 @@ public class Map extends FragmentActivity implements OnMapReadyCallback {
     @SuppressLint("NewApi")
     @Override
     public void onCreate(final Bundle savedInstanceState) {
-        if (BuildConfig.DEBUG && Build.VERSION.SDK_INT >= 23 && PermissionChecker
-                .checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) !=
-                PermissionChecker.PERMISSION_GRANTED) {
-            requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
+        if(BuildConfig.DEBUG && Build.VERSION.SDK_INT >= 23 &&
+        PermissionChecker.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) !=
+                PermissionChecker.PERMISSION_GRANTED &&
+        PermissionChecker
+                .checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) !=
+                PermissionChecker.PERMISSION_GRANTED &&
+        PermissionChecker.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) !=
+                PermissionChecker.PERMISSION_GRANTED
+        ){
+            requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,
+                    Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_LOCATION_PERMISSION);
         }
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        userId = firebaseAuth.getCurrentUser().getUid();
+        mgeoFireProv = new GeofireProvider();
+        checkUser();
+
         try {
             super.onCreate(savedInstanceState);
         } catch (final BadParcelableException bpe) {
@@ -518,23 +557,11 @@ public class Map extends FragmentActivity implements OnMapReadyCallback {
                     changeView(GoogleMap.MAP_TYPE_TERRAIN);
                     break;
                 case 11: // save
-                    Dialogs.getSaveNShare(Map.this, trace).show();
-                    closeDrawer();
+                    startActivity(new Intent(Map.this, ProfileActivity.class));
                     break;
-                case 12: // more apps
-                    try {
-                        startActivity(new Intent(Intent.ACTION_VIEW,
-                                Uri.parse("market://search?q=pub:j4velin"))
-                                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-                    } catch (ActivityNotFoundException anf) {
-                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(
-                                "https://play.google.com/store/apps/developer?id=j4velin"))
-                                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-                    }
-                    break;
-                case 13: // about
-                    Dialogs.getAbout(Map.this).show();
-                    closeDrawer();
+                case 12: // about
+                    firebaseAuth.signOut();
+                    checkUser();
                     break;
                 default:
                     break;
@@ -636,7 +663,6 @@ public class Map extends FragmentActivity implements OnMapReadyCallback {
                     double distance = SphericalUtil.computeDistanceBetween(myLocation,
                             mMap.getCameraPosition().target);
 
-                            //aqui
 
                     // Only if the distance is less than 50cm we are on our location, add the marker
                     if (distance < 0.5) {
@@ -658,6 +684,7 @@ public class Map extends FragmentActivity implements OnMapReadyCallback {
         if (hasLocationPermission()) {
             mMap.setMyLocationEnabled(true);
         }
+
 
         // KitKat translucent decor enabled? -> Add some margin/padding to the map
         if (navBarOnRight) {
@@ -684,11 +711,17 @@ public class Map extends FragmentActivity implements OnMapReadyCallback {
             getCurrentLocation(location -> {
                 if (location != null && mMap.getCameraPosition().zoom <= 5) {
                     moveCamera(new LatLng(location.getLatitude(), location.getLongitude()));
+                    mgeoFireProv.saveLocation(userId,new LatLng(location.getLatitude(), location.getLongitude()));
+
+                    Log.d("user","obteniendo usuarios");
+                    if (isFirstTime){
+                        isFirstTime = false;
+                        getActiveUsers(new LatLng(location.getLatitude(), location.getLongitude()));
+                    }
                     //AQUI
                 }
             });
 
-            //aqui
         }
     }
 
@@ -701,11 +734,12 @@ public class Map extends FragmentActivity implements OnMapReadyCallback {
     private void getCurrentLocation(final LocationCallback callback) {
         if (hasLocationPermission()) {
             LocationServices.getFusedLocationProviderClient(this).getLastLocation().addOnSuccessListener(callback::gotLocation);
+
         } else { // no permission
             if (Build.VERSION.SDK_INT >= 23) {
                 lastLocationCallback = callback;
                 requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION,
-                        Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION_PERMISSION);
+                        Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_LOCATION_PERMISSION);
             } else if (BuildConfig.DEBUG) Logger.log("no permission and no way to request them");
         }
     }
@@ -820,7 +854,11 @@ public class Map extends FragmentActivity implements OnMapReadyCallback {
 
     @Override
     public void onDestroy() {
+
+        mgeoFireProv.removeLocation(userId);
+
         super.onDestroy();
+
         if (mMap != null) {
             CameraPosition lastPosition = mMap.getCameraPosition();
             getSharedPreferences("settings", Context.MODE_PRIVATE).edit()
@@ -828,6 +866,7 @@ public class Map extends FragmentActivity implements OnMapReadyCallback {
                             lastPosition.target.latitude + "#" + lastPosition.target.longitude +
                                     "#" + lastPosition.zoom).apply();
         }
+
     }
 
     private boolean hasLocationPermission() {
@@ -835,6 +874,86 @@ public class Map extends FragmentActivity implements OnMapReadyCallback {
                 .checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) ==
                 PermissionChecker.PERMISSION_GRANTED && PermissionChecker
                 .checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) ==
-                PermissionChecker.PERMISSION_GRANTED;
+                PermissionChecker.PERMISSION_GRANTED ;
     }
+
+    //user check
+
+    private void checkUser() {
+        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+
+        if(firebaseUser == null){
+            startActivity(new Intent(this, MainActivity.class));
+            finish();
+        }else{
+            //logged in, get user info
+            String email = firebaseUser.getEmail();
+
+            //binding.subTitleTv.setText(email);
+        }
+    }
+
+
+
+    private void getActiveUsers(LatLng latLng){
+
+        mgeoFireProv.getUsersActive(latLng).addGeoQueryEventListener(new GeoQueryEventListener() {
+            @Override
+            public void onKeyEntered(String key, GeoLocation location) {
+                for (Marker marker: mUsersMarkers){
+                    if (marker.getTag() != null){
+                        if (marker.getTag().equals(key)){
+                            return;
+                        }
+                    }
+                }
+
+                LatLng userLatIng = new LatLng(location.latitude,location.longitude);
+                Marker marker1 = mMap.addMarker(new MarkerOptions().position(userLatIng).title("Usuario Disponible")
+                        .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_user_topo)));
+                marker1.setTag(key);
+
+                mUsersMarkers.add(marker1);
+
+            }
+
+            @Override
+            public void onKeyExited(String key) {
+                for (Marker marker: mUsersMarkers){
+                    if (marker.getTag() != null){
+                        if (marker.getTag().equals(key)){
+                            marker.remove();
+                            mUsersMarkers.remove(marker);
+                            return;
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onKeyMoved(String key, GeoLocation location) {
+                //Actualizar la posicion de cada conductor
+                for (Marker marker: mUsersMarkers){
+                    if (marker.getTag() != null){
+                        if (marker.getTag().equals(key)){
+                            marker.setPosition(new LatLng(location.latitude,location.longitude));
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onGeoQueryReady() {
+
+            }
+
+            @Override
+            public void onGeoQueryError(DatabaseError error) {
+
+            }
+        });
+
+    }
+
+
 }
