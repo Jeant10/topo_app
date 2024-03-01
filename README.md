@@ -30,9 +30,9 @@ geolocalización a medida que cambie la posición del topógrafo</li>
 
 El Link de la APK se encuentra 👉 <a href="https://drive.google.com/drive/folders/1u_0B54SLXK9WRDb44eb9F45eKggQCrCO?usp=drive_link">aqui</a>
 
-El Link del video encuentra 👉 <a href="">aqui</a>
+El Link del video se encuentra 👉 <a href="https://www.youtube.com/watch?v=JNIEESohTCY">aqui</a>
 
-El Link del store encuentra 👉 <a href="https://drive.google.com/drive/folders/1gKFEISCkPzpRmPfXcPmBHERrHHzdRPMK">aqui</a>
+El Link de la store se encuentra 👉 <a href="https://drive.google.com/drive/folders/1gKFEISCkPzpRmPfXcPmBHERrHHzdRPMK">aqui</a>
 
 ### Creditos
 
