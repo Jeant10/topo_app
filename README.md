@@ -26,7 +26,7 @@ Implementar una aplicación Android nativa que me permita interactuar mediante l
 El Link de la APK se encuentra 👉 <a href="https://drive.google.com/drive/folders/1u_0B54SLXK9WRDb44eb9F45eKggQCrCO?usp=drive_link">aqui</a>
 
 ### Creditos
-El repositorio de referencia se encuentra 👉 <a href="https://youtu.be/N8PnhYDs2-M?si=YgB8r-rwY01CdVDp">aqui</a>
+El repositorio de referencia se encuentra 👉 <a href="https://github.com/j4velin/MapsMeasure">aqui</a>
 
 ## Screenshots :
 
