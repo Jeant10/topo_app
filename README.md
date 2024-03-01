@@ -19,7 +19,7 @@ dichos terrenos. Ademas, Cada usuario de la aplicación puede ver donde se encue
 <li>Sistema de administración web para agregar, eliminar o desactivar usuarios y
 administradores. Además esta aplicación web permite ver en tiempo real donde se
 encuentran los topógrafos, esto en el caso de que puedan perderse</li>
-<li>Sistema que permita ver los terrenos y sus características, ubicación, polígono definido,
+<li>Sistema que permite ver los terrenos y sus características, ubicación, polígono definido,
 área, etc.</li>
 <li>Calcula del área del polígono y servicio de geolocalización corra en background</li>
 <li>Geolocalización en tiempo real, utilizando Google Maps, para determinar la
